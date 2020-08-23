@@ -12,6 +12,10 @@ module.exports = {
       domain: {
         callbackURL: "/auth/domain/callback",
         authenticator: "http://auth.sinpapeles/login",
+        dig: {
+          host: process.env.DNS_HOST,
+          port: process.env.DNS_PORT,
+        },
       },
     },
     github: {
@@ -30,6 +34,10 @@ module.exports = {
       domain: {
         callbackURL: "/auth/domain/callback",
         authenticator: "http://auth.sinpapeles/login",
+        dig: {
+          host: process.env.DNS_HOST,
+          port: process.env.DNS_PORT,
+        },
       },
     },
     github: {
@@ -48,6 +56,10 @@ module.exports = {
       domain: {
         callbackURL: "/auth/domain/callback",
         authenticator: "http://auth.sinpapeles/login",
+        dig: {
+          host: process.env.DNS_HOST,
+          port: process.env.DNS_PORT,
+        },
       },
     },
     github: {
