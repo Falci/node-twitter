@@ -5,36 +5,54 @@ module.exports = {
     db: "",
     root: rootPath,
     app: {
-      name: "Node Twitter"
+      name: "Node Twitter",
+    },
+    auth: {
+      domain: {
+        callbackURL: "http://localhost:3000/auth/domain/callback",
+        authenticator: "http://auth.sinpapeles/login",
+      },
     },
     github: {
       clientID: "",
       clientSecret: "",
-      callbackURL: ""
-    }
+      callbackURL: "",
+    },
   },
   test: {
     db: "",
     root: rootPath,
     app: {
-      name: "Node Twitter"
+      name: "Node Twitter",
+    },
+    auth: {
+      domain: {
+        callbackURL: "http://localhost:3000/auth/domain/callback",
+        authenticator: "http://auth.sinpapeles/login",
+      },
     },
     github: {
       clientID: "",
       clientSecret: "",
-      callbackURL: ""
-    }
+      callbackURL: "",
+    },
   },
   production: {
     db: "",
     root: rootPath,
     app: {
-      name: "Node Twitter"
+      name: "Node Twitter",
+    },
+    auth: {
+      domain: {
+        callbackURL: "http://localhost:3000/auth/domain/callback",
+        authenticator: "http://auth.sinpapeles/login",
+      },
     },
     github: {
       clientID: "",
       clientSecret: "",
-      callbackURL: ""
-    }
-  }
+      callbackURL: "",
+    },
+  },
 };

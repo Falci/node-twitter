@@ -25,13 +25,13 @@ module.exports = (app, passport, auth) => {
    * Authentication routes
    */
   router.get(
-    "/auth/github",
-    passport.authenticate("github", { failureRedirect: "/login" }),
+    "/auth/domain",
+    passport.authenticate("domain", { failureRedirect: "/login" }),
     users.signin
   );
   router.get(
-    "/auth/github/callback",
-    passport.authenticate("github", { failureRedirect: "/login" }),
+    "/auth/domain/callback",
+    passport.authenticate("domain", { failureRedirect: "/login" }),
     users.authCallback
   );
 
@@ -73,7 +73,7 @@ module.exports = (app, passport, auth) => {
     "/users/sessions",
     passport.authenticate("local", {
       failureRedirect: "/login",
-      failureFlash: "Invalid email or password"
+      failureFlash: "Invalid email or password",
     }),
     users.session
   );
@@ -96,10 +96,7 @@ module.exports = (app, passport, auth) => {
   /**
    * Tweet routes
    */
-  router
-    .route("/tweets")
-    .get(tweets.index)
-    .post(tweets.create);
+  router.route("/tweets").get(tweets.index).post(tweets.create);
 
   router
     .route("/tweets/:id")
@@ -128,17 +125,15 @@ module.exports = (app, passport, auth) => {
   /**
    * Find tags
    */
-  router
-    .route("/tweets/hashtag/:tag")
-    .get(tweets.findTag);
-  
+  router.route("/tweets/hashtag/:tag").get(tweets.findTag);
+
   /**
    * Page not found route (must be at the end of all routes)
    */
   router.use((req, res) => {
     res.status(404).render("pages/404", {
       url: req.originalUrl,
-      error: "Not found"
+      error: "Not found",
     });
   });
 };

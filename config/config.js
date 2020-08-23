@@ -4,7 +4,7 @@ const rootPath = path.normalize(__dirname + "/..");
 const envPath = process.env.ENVPATH || ".env";
 const dotenv = require("dotenv");
 // Path to the file where environment variables
-dotenv.config({path: envPath });
+dotenv.config({ path: envPath });
 
 module.exports = {
   development: {
@@ -12,7 +12,13 @@ module.exports = {
     port: process.env.PORT,
     root: rootPath,
     app: {
-      name: "Node Twitter"
+      name: "Social.Sinpapeles",
+    },
+    auth: {
+      domain: {
+        callbackURL: "http://localhost:3000/auth/domain/callback",
+        authenticator: "http://auth.sinpapeles/login",
+      },
     },
     github: {
       // GITHUB_CLIENT_SECRET and GITHUB_CLIENT_ID should be defined in .env file
@@ -20,8 +26,8 @@ module.exports = {
       // can be passed from Docker container
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       clientID: process.env.GITHUB_CLIENT_ID,
-      callbackURL: "http://localhost:3000/auth/github/callback"
-    }
+      callbackURL: "http://localhost:3000/auth/github/callback",
+    },
   },
   test: {
     //db: process.env.DB,
@@ -29,24 +35,36 @@ module.exports = {
     db: "mongodb://root:volvo76@ds039078.mongolab.com:39078/ntwitter",
     root: rootPath,
     app: {
-      name: "Nodejs Express Mongoose Demo"
+      name: "Nodejs Express Mongoose Demo",
+    },
+    auth: {
+      domain: {
+        callbackURL: "http://localhost:3000/auth/domain/callback",
+        authenticator: "http://auth.sinpapeles/login",
+      },
     },
     github: {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       clientID: process.env.GITHUB_CLIENT_ID,
-      callbackURL: "http://localhost:3000/auth/github/callback"
-    }
+      callbackURL: "http://localhost:3000/auth/github/callback",
+    },
   },
   production: {
     db: process.env.DB,
     root: rootPath,
     app: {
-      name: "Nodejs Express Mongoose Demo"
+      name: "Social.Sinpapeles",
+    },
+    auth: {
+      domain: {
+        callbackURL: "http://social.sinpapeles/auth/domain/callback",
+        authenticator: "http://auth.sinpapeles/login",
+      },
     },
     github: {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       clientID: process.env.GITHUB_CLIENT_ID,
-      callbackURL: "http://nitter.herokuapp.com/auth/github/callback"
-    }
-  }
+      callbackURL: "http://nitter.herokuapp.com/auth/github/callback",
+    },
+  },
 };

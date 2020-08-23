@@ -25,15 +25,15 @@ exports.index = (req, res) => {
   const options = {
     perPage: perPage,
     page: page,
-    criteria: { github: { $exists: true } }
+    criteria: { username: { $exists: true } },
   };
   let users, count, pagination;
   User.list(options)
-    .then(result => {
+    .then((result) => {
       users = result;
-      return User.countDocuments()
+      return User.countDocuments();
     })
-    .then(result => {
+    .then((result) => {
       count = result;
       pagination = createPagination(req, Math.ceil(result / perPage), page + 1);
       res.render("chat/index", {
@@ -41,10 +41,10 @@ exports.index = (req, res) => {
         users: users,
         page: page + 1,
         pagination: pagination,
-        pages: Math.ceil(count / perPage)
+        pages: Math.ceil(count / perPage),
       });
     })
-    .catch(error => {
+    .catch((error) => {
       return res.render("pages/500", { errors: error.errors });
     });
 };
@@ -55,10 +55,10 @@ exports.show = (req, res) => {
 
 exports.getChat = (req, res) => {
   const options = {
-    criteria: { receiver: req.params.userid }
+    criteria: { receiver: req.params.userid },
   };
   let chats;
-  Chat.list(options).then(result => {
+  Chat.list(options).then((result) => {
     chats = result;
     res.render("chat/chat", { chats: chats });
   });
@@ -68,17 +68,17 @@ exports.create = (req, res) => {
   const chat = new Chat({
     message: req.body.body,
     receiver: req.body.receiver,
-    sender: req.user.id
+    sender: req.user.id,
   });
   logger.info("chat instance", chat);
-  chat.save(err => {
+  chat.save((err) => {
     const activity = new Activity({
       activityStream: "sent a message to",
       activityKey: chat.id,
       receiver: req.body.receiver,
-      sender: req.user.id
+      sender: req.user.id,
     });
-    activity.save(err => {
+    activity.save((err) => {
       if (err) {
         logger.error(err);
         res.render("pages/500");

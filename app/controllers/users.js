@@ -17,15 +17,15 @@ exports.login = (req, res) => {
     .then(() => {
       return Analytics.countDocuments();
     })
-    .then(result => {
+    .then((result) => {
       analyticsCount = result;
       return Tweet.countTweets();
     })
-    .then(result => {
+    .then((result) => {
       tweetCount = result;
       return User.countTotalUsers();
     })
-    .then(result => {
+    .then((result) => {
       userCount = result;
       logger.info(tweetCount);
       logger.info(userCount);
@@ -35,7 +35,7 @@ exports.login = (req, res) => {
         message: req.flash("error"),
         userCount: userCount,
         tweetCount: tweetCount,
-        analyticsCount: analyticsCount
+        analyticsCount: analyticsCount,
       });
     });
 };
@@ -43,7 +43,7 @@ exports.login = (req, res) => {
 exports.signup = (req, res) => {
   res.render("pages/login", {
     title: "Sign up",
-    user: new User()
+    user: new User(),
   });
 };
 
@@ -61,7 +61,7 @@ exports.create = (req, res, next) => {
   user.provider = "local";
   user
     .save()
-    .catch(error => {
+    .catch((error) => {
       return res.render("pages/login", { errors: error.errors, user: user });
     })
     .then(() => {
@@ -70,7 +70,7 @@ exports.create = (req, res, next) => {
     .then(() => {
       return res.redirect("/");
     })
-    .catch(error => {
+    .catch((error) => {
       return next(error);
     });
 };
@@ -81,24 +81,24 @@ exports.list = (req, res) => {
   const options = {
     perPage: perPage,
     page: page,
-    criteria: { github: { $exists: true } }
+    criteria: { username: { $exists: true } },
   };
   let users, count;
   User.list(options)
-    .then(result => {
+    .then((result) => {
       users = result;
       return User.countDocuments();
     })
-    .then(result => {
+    .then((result) => {
       count = result;
       res.render("pages/user-list", {
         title: "List of Users",
         users: users,
         page: page + 1,
-        pages: Math.ceil(count / perPage)
+        pages: Math.ceil(count / perPage),
       });
     })
-    .catch(error => {
+    .catch((error) => {
       return res.render("pages/500", { errors: error.errors });
     });
 };
@@ -111,18 +111,18 @@ exports.show = (req, res) => {
   const options = {
     perPage: 100,
     page: page,
-    criteria: { user: userId }
+    criteria: { user: userId },
   };
   let tweets, tweetCount;
   let followingCount = user.following.length;
   let followerCount = user.followers.length;
 
   Tweet.list(options)
-    .then(result => {
+    .then((result) => {
       tweets = result;
       return Tweet.countUserTweets(reqUserId);
     })
-    .then(result => {
+    .then((result) => {
       tweetCount = result;
       res.render("pages/profile", {
         title: "Tweets from " + user.name,
@@ -130,10 +130,10 @@ exports.show = (req, res) => {
         tweets: tweets,
         tweetCount: tweetCount,
         followerCount: followerCount,
-        followingCount: followingCount
+        followingCount: followingCount,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       return res.render("pages/500", { errors: error.errors });
     });
 };
@@ -183,10 +183,10 @@ function showFollowers(req, res, type) {
   let followerCount = user.followers.length;
   let userFollowers = User.find({ _id: { $in: followers } }).populate(
     "user",
-    "_id name username github"
+    "_id name username avatar_url"
   );
 
-  Tweet.countUserTweets(user._id).then(result => {
+  Tweet.countUserTweets(user._id).then((result) => {
     tweetCount = result;
     userFollowers.exec((err, users) => {
       if (err) {
@@ -197,7 +197,7 @@ function showFollowers(req, res, type) {
         followers: users,
         tweetCount: tweetCount,
         followerCount: followerCount,
-        followingCount: followingCount
+        followingCount: followingCount,
       });
     });
   });
