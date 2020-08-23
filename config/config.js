@@ -16,7 +16,7 @@ module.exports = {
     },
     auth: {
       domain: {
-        callbackURL: "http://localhost:3000/auth/domain/callback",
+        callbackURL: "/auth/domain/callback",
         authenticator: "http://auth.sinpapeles/login",
       },
     },
@@ -39,7 +39,7 @@ module.exports = {
     },
     auth: {
       domain: {
-        callbackURL: "http://localhost:3000/auth/domain/callback",
+        callbackURL: "/auth/domain/callback",
         authenticator: "http://auth.sinpapeles/login",
       },
     },

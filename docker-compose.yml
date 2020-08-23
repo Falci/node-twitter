@@ -3,7 +3,7 @@ services:
   web:
     build: .
     ports:
-      - "3000:3000"
+      - "3005:3000"
     depends_on:
       - mongodb
     restart: always
